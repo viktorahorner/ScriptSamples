@@ -25,7 +25,7 @@ $claimdefinition = @('{
   write-host 'Trying to create '$claimrulename -backgroundcolor DarkGray
   try
   {
-  $custompolicy = New-AzureADPolicy -Definition $claimdefinition -DisplayName -Type "ClaimsMappingPolicy" -ErrorAction stop #policy is created in this line
+  $custompolicy = New-AzureADPolicy -Definition $claimdefinition -DisplayName $claimrulename -Type "ClaimsMappingPolicy" -ErrorAction stop #policy is created in this line
   write-host 'Successful created '$claimrulename -ForegroundColor Green
   }
   catch
