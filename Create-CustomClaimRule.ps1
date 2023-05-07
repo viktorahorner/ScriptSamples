@@ -1,4 +1,3 @@
-
 function Create-CustomClaimRule
 {
 #Edit this part if you want editional claims in your token
@@ -32,6 +31,16 @@ $claimdefinition = @('{
   {
     write-host 'Creation of '$claimrulename' failed' -backgroundcolor DarkRed
   }
-  $serviceprincipal = (Get-AzureADServicePrincipal -top 1).objectid
-    Add-AzureADServicePrincipalPolicy -Id $serviceprincipal -RefObjectId $custompolicy.objectid
+
+  $serviceprincipal = (Get-AzureADServicePrincipal -top 1).objectid #geting ServicePrincipalID from your tenant
+    write-host 'Trying to Activate '$claimrulename -backgroundcolor DarkGray
+  try
+  {
+  Add-AzureADServicePrincipalPolicy -Id $serviceprincipal -RefObjectId $custompolicy.id -ErrorAction stop
+    write-host 'Successful activated '$claimrulename -ForegroundColor Green
+  }
+  catch
+  {
+      write-host 'Activation of '$claimrulename' failed' -backgroundcolor DarkRed
+  }
   }
