@@ -22,5 +22,6 @@ try
 }
 
 #How to Use
+#Adopt the filepath $exportlocation = 'D:\temp\' to your desired location
 #Run the function and add primarysmtpaddress of mailbox which folderpermissions your want to export.
 #Export-MailboxPermissions -mailboxname email@address.org 
