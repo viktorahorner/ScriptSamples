@@ -1,7 +1,7 @@
 function Export-MailboxPermissions
 {
 param($mailboxname)
-$exportlocation = 'D:\temp\'
+$exportlocation = 'C:\temp\'
 $mailboxfolders = Get-MailboxFolderStatistics -Identity $mailboxname 
 $mailboxpermissions=@()
 foreach($mailboxfolder in $mailboxfolders)
@@ -18,7 +18,16 @@ try
  Write-Host 'Unable to get permissions for '($mailboxfolder.identity) -ForegroundColor Magenta
  }
  }
- $mailboxpermissions | ConvertTo-Csv | Out-File -FilePath ($exportlocation+$mailboxname+'permissions.csv')
+ Write-Host 'Trying to export permissions to '($exportlocation+$mailboxname+'permissions.csv') -ForegroundColor DarkGray
+ try
+ {
+ $mailboxpermissions | ConvertTo-Csv | Out-File -FilePath ($exportlocation+$mailboxname+'permissions.csv') -ErrorAction stop
+  Write-Host 'Successfull exported permissions to '($exportlocation+$mailboxname+'permissions.csv') -ForegroundColor Green
+ }
+ catch
+ {
+  Write-Host 'Unable to export permissions to '($exportlocation+$mailboxname+'permissions.csv') -ForegroundColor Magenta
+ }
 }
 
 #How to Use
